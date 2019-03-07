@@ -54,16 +54,47 @@
 	
 */
 
-function init {
+function init() {
       //insert the title for the first puzzle
-      Document.getElementsByID"Puzzle Title"innerHTML 
+      document.getElementById("puzzleTitle").innerHTML = "puzzle 1";
+ 
+      //omser the html code for the first piuzzle table
+      document.getElementById("puzzle").innerHTML = drawPuzzle(puzzleHint, puzzleRating, puzzel1);
+ }
+
+  //add event handler for the puzzle button
+  var puzzleButons = document.getElementsByClassName("puzzles");
+  for (var i = 0; i < puzzleButons.length; i++) {
+        puzzleButons[i].onclick = swapPuzzle;
+  }
+
+
+function swapPuzzle(e) {
+
+  //retrieve the ID of the clicked button
+  var puzzleID = e.target.id;2
+
+  //retrieve the ID of the clicked button
+  var puzzleTitle = e.target.value;
+  document.getElementById("puzzleTitle").innerHTML = puzzleTitle;
 }
 
-//this will insert the html for the puzzle table
-getElementsByID
 
+//add event handlers for the puzzle buttons
+var puzzleButtons = document.getElementsByClassName(“puzzles”);
 
+for (var i = 0; i < puzzleButtons.length; i++) {
+      puzzleButtons[i].onclick = swapPuzzle;
+}
+}
 
+function swapPuzzle(e) {
+var puzzleID = e.target.id;
+
+var puzzleTitle = e.target.value;
+document.getElementById(“puzzleTitle”).innerHTML = puzzleTitle
+document .getElementById
+}
 
 /* ================================================================= */
 
