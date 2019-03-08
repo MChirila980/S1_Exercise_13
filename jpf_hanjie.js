@@ -57,31 +57,32 @@
 function init() {
       //insert the title for the first puzzle
       document.getElementById("puzzleTitle").innerHTML = "puzzle 1";
- 
+
       //omser the html code for the first piuzzle table
       document.getElementById("puzzle").innerHTML = drawPuzzle(puzzleHint, puzzleRating, puzzel1);
- }
+}
 
-  //add event handler for the puzzle button
-  var puzzleButons = document.getElementsByClassName("puzzles");
-  for (var i = 0; i < puzzleButons.length; i++) {
-        puzzleButons[i].onclick = swapPuzzle;
-  }
+//add event handler for the puzzle button
+var puzzleButons = document.getElementsByClassName("puzzles")
+for (var i = 0; i < puzzleButons.length; i++) {
+      puzzleButons[i].onclick = swapPuzzle;
+}
 
 
 function swapPuzzle(e) {
 
-  //retrieve the ID of the clicked button
-  var puzzleID = e.target.id;2
+      //retrieve the ID of the clicked button
+      var puzzleID = e.target.id;
+      2
 
-  //retrieve the ID of the clicked button
-  var puzzleTitle = e.target.value;
-  document.getElementById("puzzleTitle").innerHTML = puzzleTitle;
+      //retrieve the ID of the clicked button
+      var puzzleTitle = e.target.value;
+      document.getElementById("puzzleTitle").innerHTML = puzzleTitle;
 }
 
 
 //add event handlers for the puzzle buttons
-var puzzleButtons = document.getElementsByClassName("puzzles");
+var puzzleButtons = document.getElementsByClassName("puzzles")
 
 for (var i = 0; i < puzzleButtons.length; i++) {
       puzzleButtons[i].onclick = swapPuzzle;
@@ -89,37 +90,48 @@ for (var i = 0; i < puzzleButtons.length; i++) {
 
 
 function swapPuzzle(e) {
-var puzzleID = e.target.id;
+      var puzzleID = e.target.id;
 
-var puzzleTitle = e.target.value;
-document.getElementById("puzzleTitle").innerHTML = puzzleTitle;
-document .getElementById;
+      var puzzleTitle = e.target.value;
+      document.getElementById("puzzleTitle").innerHTML = puzzleTitle
+
+      switch (puzzleID) {
+            case "puzzle1":
+                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle1Hint, puzzle1Rating, puzzle1);
+                  break;
+            case "puzzle2":
+                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle2Hint, puzzle2Rating, puzzle2);
+                  break;
+            case "puzzle3":
+                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle3Hint, puzzle3Rating, puzzle3);
+                  break;
+      }
+      setupPuzzle();
+}
+
+function setupPuzzle() {
+      puzzleCells = document.querySelectorAll("table#hanjieGrid td");
+      for (var i = 0; i < puzzleCells.length; i++) {
+            puzzleCells[i].style.backgroundColor = "rgb(233, 207, 29)";
+            puzzleCells[i].onmousedown = setBackground;
+      }
+}
+
+function setBackground(e) {
+      cellBackground = "rgb(101, 101, 101)";
+      e.target.style.backgroundColor = cellBackground;
+
+      for (var i = 0; i < puzzleCells.length; i++) {
+            puzzleCells[i].addEventListener("mouseenter", extendBackground);
+      }
+}
+
+function extendBackground(e) {
+      e.target.style.backgroundColor = cellBackground;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//this will create an event listener for every puzzel cell. Creating the structure first (the foreloop)
 /* ================================================================= */
 
 function drawPuzzle(hint, rating, puzzle) {
