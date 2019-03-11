@@ -54,33 +54,32 @@
 	
 */
 window.onload = init;
+
 var puzzleCells;
-var cellBackground;
 
 function init() {
-      //insert the title for the first puzzle
-      document.getElementById("puzzleTitle").innerHTML = "puzzle 1";
+      // insert the title for the first puzzle
+      document.getElementById("puzzleTitle").innerHTML = "Puzzle 1";
 
-      //omser the html code for the first piuzzle table
+      // insert the HTML code for the first puzzle table
       document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle1Hint, puzzle1Rating, puzzle1);
 
+      //add event handlers for the puzzle buttons
       var puzzleButtons = document.getElementsByClassName("puzzles");
-      for(var i = 0; i < puzzleButtons.length; i++){
+
+      for (var i = 0; i < puzzleButtons.length; i++) {
             puzzleButtons[i].onclick = swapPuzzle;
       }
       setupPuzzle();
 }
 
-document.addEventListener("mouseup", endBackground);
+var cellBackground;
 
 function swapPuzzle(e) {
-
-      //retrieve the ID of the clicked button
       var puzzleID = e.target.id;
 
-      //retrieve the ID of the clicked button
       var puzzleTitle = e.target.value;
-      document.getElementById("puzzleTitle").innerHTML = puzzleTitle;
+      document.getElementById("puzzleTitle").innerHTML = puzzleTitle
 
       switch (puzzleID) {
             case "puzzle1":
@@ -95,21 +94,45 @@ function swapPuzzle(e) {
       }
       setupPuzzle();
 }
+document.addEventListener("mouseup", endBackground);
+
+document.getElementById("solve").addEventListener("click",
+      function () {
+            for (var i = 0; i < puzzleCells.length; i++) {
+                  puzzleCells[i].style.backgroundColor = "";
+            }
+      }
+);
 
 function setupPuzzle() {
       puzzleCells = document.querySelectorAll("table#hanjieGrid td");
       for (var i = 0; i < puzzleCells.length; i++) {
             puzzleCells[i].style.backgroundColor = "rgb(233, 207, 29)";
             puzzleCells[i].onmousedown = setBackground;
+            puzzleCells[i].style.cursor = "url(jpf_pencil.png), pointer";
       }
 }
 
 function setBackground(e) {
-      cellBackground = "rgb(101, 101, 101)";
+      var cursorType;
+
+      if (e.shiftKey) {
+            cellBackground = "rgb(233, 207, 29)";
+            cursorType = "url(jpf_eraser.png), cell";
+      } else if (e.altKey) {
+            cellBackground = "rgb(255, 255, 255)";
+            cursorType = "url(jpf_cross.png), crosshair";
+      } else {
+            cellBackground = "rgb(101, 101, 101)";
+            cursorType = "url(jpf_pencil.png), pointer";
+      }
       e.target.style.backgroundColor = cellBackground;
 
       for (var i = 0; i < puzzleCells.length; i++) {
             puzzleCells[i].addEventListener("mouseenter", extendBackground);
+            puzzleCells[i].style.cursor = cursorType;
+
+            e.preventDefault();
       }
 }
 
@@ -117,9 +140,10 @@ function extendBackground(e) {
       e.target.style.backgroundColor = cellBackground;
 }
 
-function endBackground(){
-      for(var i = 0; i < puzzleCells.length; i++){
+function endBackground() {
+      for (var i = 0; i < puzzleCells.length; i++) {
             puzzleCells[i].removeEventListener("mouseenter", extendBackground);
+            puzzleCells[i].style.cursor = "url(jpf_pencil.png), pointer";
       }
 }
 
